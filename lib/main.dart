@@ -14,6 +14,18 @@ class NYTBooksApp extends StatefulWidget {
 
 // 2. Class NYTBooksState()
 class NYTBooksState extends State<NYTBooksApp> {
+  var _isLoading = true;
+
+
+  _fetchData() {
+    print("Fetching data from server.");
+
+    // Assuming the fetch is done successfully
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -34,12 +46,16 @@ class NYTBooksState extends State<NYTBooksApp> {
               icon: new Icon(Icons.refresh),
               onPressed: () {
                 print("Reloading ...");
+                setState(() {
+                  _isLoading = true;
+                });
+                _fetchData();
               },
             )
           ],
         ),
         body: new Center(
-          child: new CircularProgressIndicator(),
+          child: _isLoading ? new CircularProgressIndicator() : new Text("Finished fetching data!"),
         ),
       ),
     );
