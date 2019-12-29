@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() => runApp(NYTBooksApp());
 
@@ -16,14 +18,24 @@ class NYTBooksApp extends StatefulWidget {
 class NYTBooksState extends State<NYTBooksApp> {
   var _isLoading = true;
 
+  var books;
 
-  _fetchData() {
+  _fetchData() async {
     print("Fetching data from server.");
 
-    // Assuming the fetch is done successfully
-    setState(() {
-      _isLoading = false;
-    });
+    final apiKey = "uZNGAfYfD79HcCYFwe2UwUv6ADvq0G5U";
+    final nytEndpoint = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=$apiKey";
+
+    final response = await http.get(nytEndpoint);
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      setState(() {
+        _isLoading = false;
+        this.books = data["results"]["books"];
+      });
+    }
+    
   }
 
   @override
