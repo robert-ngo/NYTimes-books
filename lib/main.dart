@@ -80,7 +80,7 @@ class NYTBooksState extends State<NYTBooksApp> {
                   padding: EdgeInsets.all(0.0),
                   child: new BookListItem(book),
                   onPressed: () {
-                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailScreen()));
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailScreen(book: book,)));
                   },
                 );
               },
