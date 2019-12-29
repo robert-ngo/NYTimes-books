@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import './views/book/listItem.dart';
+import './detail.dart';
 
 void main() => runApp(NYTBooksApp());
 
@@ -74,7 +75,14 @@ class NYTBooksState extends State<NYTBooksApp> {
               itemCount: this.books != null ? this.books.length : 0,
               itemBuilder: (context, i) {
                 final book = this.books[i];
-                return BookListItem(book);
+
+                return new FlatButton(
+                  padding: EdgeInsets.all(0.0),
+                  child: new BookListItem(book),
+                  onPressed: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailScreen()));
+                  },
+                );
               },
             )
         ),
