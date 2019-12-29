@@ -51,7 +51,7 @@ class NYTBooksState extends State<NYTBooksApp> {
       // - body with a CircularProcessIndicator() in the center
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text("NY Times books"),
+          title: new Text("NY Times - Hardcover fictions"),
           backgroundColor: Colors.white,
           actions: <Widget>[
             new IconButton(
