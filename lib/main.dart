@@ -20,6 +20,7 @@ class NYTBooksApp extends StatefulWidget {
 // 2. Class NYTBooksState()
 class NYTBooksState extends State<NYTBooksApp> {
   var _isLoading = true;
+  var _isGridView = false;
 
   var books;
 
@@ -38,7 +39,68 @@ class NYTBooksState extends State<NYTBooksApp> {
         this.books = data["results"]["books"];
       });
     }
-    
+  }
+
+  _renderListView() {
+    return new ListView.builder(
+              itemCount: this.books != null ? this.books.length : 0,
+              itemBuilder: (context, i) {
+                final book = this.books[i]; 
+
+                return new FlatButton(
+                  padding: EdgeInsets.all(0.0),
+                  child: new BookListItem(book),
+                  onPressed: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailScreen(book: book,)));
+                  },
+                );
+              },
+            );
+  }
+
+  _renderGridView() {
+    print("hsdfdsfds");
+    return new GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: 0.8,
+              mainAxisSpacing: 16.0,
+              padding: EdgeInsets.only(top: 16.0, left: 8.0, right: 8.0, bottom: 16.0),
+              children: this.books.map<Widget>((book) {
+                final title = book["title"];
+                final imageUrl = book["book_image"];
+                final author = book["author"];
+                return new Container(
+                  child: new Column(
+                    children: <Widget>[
+                      Image.network(imageUrl, height: 150.0,),
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            Container(height: 16.0,),
+                            Text(title, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text(author),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                );
+              }).toList()
+            );
+  }
+
+  _render() {
+    print('sdsfsfdsdsf');
+    print(_isGridView);
+    if (_isLoading) {
+      return new CircularProgressIndicator();
+    } else {
+      if (_isGridView) {
+        return _renderGridView();
+      } else {
+        return _renderListView();
+      }
+    }
   }
 
   @override
@@ -58,6 +120,14 @@ class NYTBooksState extends State<NYTBooksApp> {
           backgroundColor: Colors.white,
           actions: <Widget>[
             new IconButton(
+              icon: new Icon(_isGridView ? Icons.view_list : Icons.grid_on),
+              onPressed: () {
+                setState(() {
+                  _isGridView = !_isGridView;
+                });
+              },
+            ),
+            new IconButton(
               icon: new Icon(Icons.refresh),
               onPressed: () {
                 print("Reloading ...");
@@ -70,21 +140,8 @@ class NYTBooksState extends State<NYTBooksApp> {
           ],
         ),
         body: new Center(
-          child: _isLoading ? new CircularProgressIndicator() : 
-            new ListView.builder(
-              itemCount: this.books != null ? this.books.length : 0,
-              itemBuilder: (context, i) {
-                final book = this.books[i];
-
-                return new FlatButton(
-                  padding: EdgeInsets.all(0.0),
-                  child: new BookListItem(book),
-                  onPressed: () {
-                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailScreen(book: book,)));
-                  },
-                );
-              },
-            )
+          child: _render()
+            
         ),
       ),
     );
