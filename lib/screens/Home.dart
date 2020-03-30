@@ -4,28 +4,9 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 
-// 1. add Book data model 
-class Book {
-  final String title;
-  final String imageUrl;
-  final String description;
-  final String publisher;
-  final int weeksOnList;
-  final String author;
+import './Detail.dart';
+import '../model/Book.dart';
 
-  Book({this.title, this.imageUrl, this.description, this.publisher, this.weeksOnList, this.author});
-
-  factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(
-      title: json['title'],
-      imageUrl: json['book_image'],
-      description: json['description'],
-      publisher: json['publisher'], 
-      weeksOnList: json['weeks_on_list'], 
-      author: json['author']
-    );
-  }
-}
 
 // 2. API call request
 Future<List<Book>> fetchBooks(http.Client client) async {
@@ -168,13 +149,14 @@ class BookList extends StatelessWidget {
     return new ListView.builder(
           itemCount: this.books != null ? this.books.length : 0,
           itemBuilder: (context, i) {
-            final book = this.books[i]; 
+            final Book book = this.books[i]; 
 
             return new FlatButton(
               padding: EdgeInsets.all(0.0),
               child: new BookListItem(book),
               onPressed: () {
-                //Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailScreen(book: book,)));
+                Navigator.push(context, 
+                  new MaterialPageRoute(builder: (context) => new DetailScreen(book: book)));
               },
             );
           },
