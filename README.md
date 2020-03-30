@@ -19,3 +19,5 @@ To run the project:
 
 - run `flutter pub` to install dependencies
 - run `flutter run` to spin up the app on simulator
+
+![alt text](https://raw.githubusercontent.com/robert-ngo/NYTimes-books/master/screenshots/NYT-flutter.gif "New York Times books - Flutter app")
