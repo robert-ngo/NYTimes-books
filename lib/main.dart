@@ -13,7 +13,8 @@ class NYTBooksApp extends StatelessWidget {
       theme: new ThemeData(
         primaryColor: Colors.white,
       ),
-      home: HomeScreen(title: appTitle)
+      
+      home: HomeScreen()
     );
   }
 }

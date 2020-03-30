@@ -46,10 +46,14 @@ List<Book> parseBooks(String responseBody) {
 /*
  * The HomeScreen component.
  */
-class HomeScreen extends StatelessWidget {
-  final String title;
-
-  HomeScreen({Key key, @required this.title}): super(key: key);
+class HomeScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new HomeScreenState();
+  }
+}
+class HomeScreenState extends State<HomeScreen> {
+  var _isGridView = false;
 
   @override
   Widget build(BuildContext context) {
