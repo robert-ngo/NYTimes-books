@@ -89,7 +89,14 @@ class BookGrid extends StatelessWidget {
       itemCount: books.length,
       itemBuilder: (context, index) {
         final Book book = books[index];
-        return new BookGridItem(book);
+        return new FlatButton(
+              padding: EdgeInsets.all(0.0),
+              child: new BookGridItem(book),
+              onPressed: () {
+                Navigator.push(context, 
+                  new MaterialPageRoute(builder: (context) => new DetailScreen(book: book)));
+              },
+            );
       }
     );
   }
