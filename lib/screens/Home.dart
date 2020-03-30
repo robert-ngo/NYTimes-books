@@ -8,16 +8,18 @@ import 'package:flutter/foundation.dart';
 class Book {
   final String title;
   final String imageUrl;
+  final String description;
   final String publisher;
-  final String weeksOnList;
+  final int weeksOnList;
   final String author;
 
-  Book({this.title, this.imageUrl, this.publisher, this.weeksOnList, this.author});
+  Book({this.title, this.imageUrl, this.description, this.publisher, this.weeksOnList, this.author});
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
       title: json['title'],
       imageUrl: json['book_image'],
+      description: json['description'],
       publisher: json['publisher'], 
       weeksOnList: json['weeks_on_list'], 
       author: json['author']
@@ -62,7 +64,8 @@ class HomeScreen extends StatelessWidget {
 
           return snapshot.hasError 
             ? Center(child: CircularProgressIndicator())
-            : BookList(books: snapshot.data) ;
+            : BookList(books: snapshot.data);
+            //: BookGrid(books: snapshot.data) ;
         },
       )
     );
@@ -70,13 +73,13 @@ class HomeScreen extends StatelessWidget {
 }
 
 /*
- * BookList componenent. 
+ * BookGrid componenent. 
  * Render List<Book> as a grid of 2 columns.
  */
-class BookList extends StatelessWidget {
+class BookGrid extends StatelessWidget {
   final List<Book> books;
 
-  BookList({Key key, this.books}) : super(key: key);
+  BookGrid({Key key, this.books}) : super(key: key);
 
   @override 
   Widget build(BuildContext context) {
@@ -129,6 +132,79 @@ class BookGridItem extends StatelessWidget {
               ]
             )
           )
+        ]
+      )
+    );
+  }
+  
+}
+
+/*
+ * BookList componenent. 
+ * Render List<Book> as a single column list.
+ */
+class BookList extends StatelessWidget {
+  final List<Book> books;
+
+  BookList({Key key, this.books}) : super(key: key);
+
+  @override 
+  Widget build(BuildContext context) {
+    return new ListView.builder(
+          itemCount: this.books != null ? this.books.length : 0,
+          itemBuilder: (context, i) {
+            final book = this.books[i]; 
+
+            return new FlatButton(
+              padding: EdgeInsets.all(0.0),
+              child: new BookListItem(book),
+              onPressed: () {
+                //Navigator.push(context, new MaterialPageRoute(builder: (context) => new DetailScreen(book: book,)));
+              },
+            );
+          },
+        );
+  }
+}
+
+/*
+ * BookListItem component. 
+ */
+class BookListItem extends StatelessWidget {
+  final Book book;
+
+  BookListItem(this.book);
+
+  @override
+  Widget build(BuildContext context) {
+    final String title = book.title;
+    final String description = book.description;
+    final String imageUrl = book.imageUrl;
+    final String publisher = book.publisher;
+    final String weeksOnList = book.weeksOnList.toString();
+    final String author = book.author;
+
+    return new Container(
+      padding: new EdgeInsets.all(16.0),
+      child: new Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Image.network(imageUrl, width: 100.0,),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(left: 16.0, top: 12.0),
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("$weeksOnList weeks on the list".toUpperCase(), style: TextStyle(fontSize: 12.0),),
+                  Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),  
+                  Text("by $author | $publisher",),
+                  new Container(height: 8.0,),
+                  Text(description, style: TextStyle(fontFamily: 'georgia'),)
+                ],
+              ),
+            ),
+          ),
         ]
       )
     );
