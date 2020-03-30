@@ -59,17 +59,28 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(this.title),
+        title: new Text("NY Times - Hardcover fictions"),
+        backgroundColor: Colors.white,
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(_isGridView ? Icons.view_list : Icons.grid_on),
+            onPressed: () {
+              setState(() {
+                _isGridView = !_isGridView;
+              });
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<Book>>(
         future: fetchBooks(http.Client()),
         builder: (context, snapshot) {
           if (snapshot.hasError) print (snapshot.error);
-
           return snapshot.hasError 
             ? Center(child: CircularProgressIndicator())
-            : BookList(books: snapshot.data);
-            //: BookGrid(books: snapshot.data) ;
+            : _isGridView 
+              ? BookGrid(books: snapshot.data) 
+              : BookList(books: snapshot.data);
         },
       )
     );
