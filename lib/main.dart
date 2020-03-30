@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/Home.dart' as HomeScreen;
+import 'screens/Home.dart';
 
 void main() => runApp(NYTBooksApp());
 
@@ -13,7 +13,7 @@ class NYTBooksApp extends StatelessWidget {
       theme: new ThemeData(
         primaryColor: Colors.white,
       ),
-      home: HomeScreen.HomeScreen(title: appTitle)
+      home: HomeScreen(title: appTitle)
     );
   }
 }
