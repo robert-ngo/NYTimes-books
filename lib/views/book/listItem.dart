@@ -20,7 +20,7 @@ class BookListItem extends StatelessWidget {
           Image.network(imageUrl, width: 100.0,),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(left: 16.0),
+              padding: EdgeInsets.only(left: 16.0, top: 12.0),
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[

@@ -29,7 +29,6 @@ class NYTBooksState extends State<NYTBooksApp> {
 
     final apiKey = "uZNGAfYfD79HcCYFwe2UwUv6ADvq0G5U";
     final nytEndpoint = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=$apiKey";
-
     final response = await http.get(nytEndpoint);
 
     if (response.statusCode == 200) {
@@ -59,7 +58,6 @@ class NYTBooksState extends State<NYTBooksApp> {
   }
 
   _renderGridView() {
-    print("hsdfdsfds");
     return new GridView.count(
               crossAxisCount: 2,
               childAspectRatio: 0.8,
@@ -90,8 +88,6 @@ class NYTBooksState extends State<NYTBooksApp> {
   }
 
   _render() {
-    print('sdsfsfdsdsf');
-    print(_isGridView);
     if (_isLoading) {
       return new CircularProgressIndicator();
     } else {
