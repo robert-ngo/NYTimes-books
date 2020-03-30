@@ -1,5 +1,7 @@
 # New York Times books
 
+![alt text](https://raw.githubusercontent.com/robert-ngo/NYTimes-books/master/screenshots/NYT-flutter.jpg "New York Times books - Flutter app")
+
 A sample Flutter project, to demontrate fetching data from New York Times Books API. 
 The sample application is used to experimenting: 
 
