@@ -1,16 +1,19 @@
-# nyt_books
+# New York Times books
 
-A new Flutter project.
+A sample Flutter project, to demontrate fetching data from New York Times Books API. 
+The sample application is used to experimenting: 
 
-## Getting Started
+- the use of fetching, parsing in background isolate using the compute(). 
+- accessing New York Times Books API. 
+- basic Flutter layout
+- StateLessWidget vs StateFulWidget 
+- launch URL using `url_launcher`
 
-This project is a starting point for a Flutter application.
+## To run project 
 
-A few resources to get you started if this is your first Flutter project:
+Assuming you already have flutter installed, if not, please install it by following instructions at https://flutter.dev/docs/get-started/install. 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+To run the project: 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- run `flutter pub` to install dependencies
+- run `flutter run` to spin up the app on simulator
