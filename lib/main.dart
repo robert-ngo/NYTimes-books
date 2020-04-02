@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'screens/Home.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() => runApp(NYTBooksApp());
+Future main() async {
+  await DotEnv().load('.env');
+  runApp(NYTBooksApp());
+}
 
 class NYTBooksApp extends StatelessWidget {
   @override 

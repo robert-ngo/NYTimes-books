@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './Detail.dart';
 import '../model/Book.dart';
@@ -11,7 +12,7 @@ import '../model/Book.dart';
 // 2. API call request
 Future<List<Book>> fetchBooks(http.Client client) async {
   print("Fetching data from server.");
-  final apiKey = "uZNGAfYfD79HcCYFwe2UwUv6ADvq0G5U";
+  final apiKey = DotEnv().env['NYT_API_KEY'];
   final nytEndpoint = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=$apiKey";
   final response = await client.get(nytEndpoint);
   return compute(parseBooks, response.body);
